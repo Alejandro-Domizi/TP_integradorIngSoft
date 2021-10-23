@@ -3,79 +3,79 @@
 	abstract class EmpleadoTest extends \PHPUnit\Framework\TestCase{
 
 		// Funcion crear
-		public function crear ($nombre = "Alejandro", $apellido = "Scozzatti", $dni = 31415926, $salario = 2000, $sector = "indefinido")
+		public function crearDefault($nombre = "Alejandro", $apellido = "Scozzatti", $dni = 77777777, $salario = "12000")
 		{
-			$emp = new \App\Empleado ($nombre, $apellido, $dni, $salario, $sector);
+			$emp = new \App\Empleado ($nombre, $apellido, $dni, $salario);
 			return $emp;
 		}
 
-		//Crear test Nombre Y Apellido
+		//test getNombreApellido
 
 		public function testCrearNombreYApellido(){
-			$emp = $this->crear();
-			$this->assertEquals("German Gimenez", $emp->getNombreApellido());
+			$emp = $this->crearDefault();
+			$this->assertEquals("Alejandro Scozzatti", $emp->getNombreApellido());
 		}
-		//crear test DNI
+		//test getDni
 
 		public function testCrearDNI(){
-			$emp = $this->crear();
-			$this->assertEquals(30658947, $emp->getDNI());
+			$emp = $this->crearDefault();
+			$this->assertEquals(77777777, $emp->getDni());
 		}
 
-		//crear test Salario
+		//test getSalario
 
 		public function testCrearSalario(){
-			$emp = $this->crear();
-			$this->assertEquals(3000,$emp->getSalario());
+			$emp = $this->crearDefault();
+			$this->assertEquals("12000",$emp->getSalario());
 		}
 
-		//crear test getSector Y setSector
+		//test getSector Y setSector
 
 		public function testSePuedeCambiarElSectorDelEmpleado(){
-			$emp=$this->crear();
-			$seccion = "otro";
+			$emp=$this->crearDefault();
+			$seccion = "FrontEnd";
 			$this->assertEquals("No especificado",$emp->getSector());
 
 			//seteo el sector que le asigno
 			$emp->setSector($seccion);
 
 			//pruebo si se asigno correctamente
-			$this->assertEquals("otro",$emp->getSector());
+			$this->assertEquals("FrontEnd",$emp->getSector());
 		}
 
-		// crear test __toString
+		//test __toString
 
 		public function testConvertirObjetoEnUnaCadena(){
-			$emp=$this->crear();
-			$this->assertEquals("German Gimenez 30658947 3000",$emp);
+			$emp=$this->crearDefault();
+			$this->assertEquals("Alejandro Scozzatti 77777777 12000",$emp);
 		}
 
         //Probar que si intento construir un empleado con el nombre vacío, lanza una excepción.
 
 		public function testSiSeIntentaConstruirEmpleadoConElNombreVacio(){
 			$this->expectException(\Exception::class);
-			$emp= $this-> crear($nombre="");
+			$this-> crearDefault("","Scozzatti", 77777777, "12000");
 		}
 
 		//Probar que si intento construir un empleado con el apellido vacío, lanza una excepción.
 
 		public function testSiSeIntentaConstruirEmpleadoConElApellidoVacio(){
 			$this->expectException(\Exception::class);
-			$emp= $this-> crear($nombre="Juan", $Apellido="");
+			$this-> crearDefault("Alejandro","", 77777777, "12000");
 		}
 
 		//Probar que si intento construir un empleado con el dni vacío, lanza una excepción.
 
 		public function testSiSeIntentaConstruirEmpleadoConElDniVacio(){
 			$this->expectException(\Exception::class);
-			$emp= $this-> crear(null, null,$dni="");
+			$this-> crearDefault("Alejandro","Scozzatti", "", "12000");
 		}
 
         //Probar que si intento construir un empleado con el salario vacío, lanza una excepción.
 
 		public function testSiSeIntentaConstruirEmpleadoConElSalarioVacio(){
 			$this->expectException(\Exception::class);
-			$emp= $this-> crear(null, null, null,$Salario="");
+			$this-> crearDefault("Alejandro","Scozzatti", 77777777, "");
 		}
 
 		//Probar que si intento construir un empleado cuyo DNI contenga letras 
@@ -83,14 +83,14 @@
 
 		public function testSiSeIntentaConstruirEmpleadoConElDniQueContengaLetras(){
 			$this->expectException(\Exception::class);
-			$emp= $this-> crear(null, null, "30DNI578");
+			$this-> crearDefault("Alejandro","Scozzatti", 77DNI777, "12000");
 		}
 
 		//Probar que si, al intentar construir un empleado, no se especifica el sector, 
 		//el método getSector debe devolver la cadena “No especificado”
 
 		public function testNoSeEspecificaElSectorDevuelveNoEspecificado(){
-			$emp= $this-> crear("Juan", "Fernandez", 35999625, 5000);
+			$emp= $this-> crearDefault("Juan", "Fernandez", 35999625, "20000");
 			$this->assertEquals("No especificado", $emp->getSector());
 		}
 	}
