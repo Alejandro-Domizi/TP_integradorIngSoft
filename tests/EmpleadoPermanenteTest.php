@@ -21,18 +21,18 @@
 
 		public function testCalcularComisionBasadaEnLaAntiguedad(){
 			$ingreso = new DateTime();
-			$ingreso->modify('-20 years');
-			$empper= $this->crearDefault('Alejandro','Scozzatti',7777777, 12000, $ingreso); 
-			$this->assertEquals("20%",$empper->calcularComision());
+			$ingreso->modify('-10 years');
+			$empper= $this->crearDefault("Alejandro","Scozzatti",7777777, 12000, $ingreso); 
+			$this->assertEquals("10%",$empper->calcularComision());
 		}
 
         //Probar que el método calcularIngresoTotal() funciona como se espera.
 
 		public function testCalcularElIngresoTotal(){
 			$ingreso = new DateTime();
-			$ingreso->modify('-20 years');
-			$empper= $this->crearDefault('Alejandro','Scozzatti', 77777777, 12000, $ingreso); 
-			$this->assertEquals(36000,$empper->calcularIngresoTotal());
+			$ingreso->modify('-10 years');
+			$empper= $this->crearDefault("Alejandro", "Scozzatti", 77777777, 12000, $ingreso); 
+			$this->assertEquals(13200,$empper->calcularIngresoTotal());
 		}
 
 		//Probar que el método calcularAntiguedad() funciona como se espera 
@@ -40,9 +40,9 @@
 
 		public function testSePuedeCalcularAntiguedad(){
 			$ingreso = new DateTime();
-			$ingreso->modify('-20 years');
-			$empper= $this->crearDefault('German','Gimenez', 77777777, 12000, $ingreso);
-			$this->assertEquals(20,$empper->calcularAntiguedad());
+			$ingreso->modify('-10 years');
+			$empper= $this->crearDefault("Alejandro", "Scozzatti", 77777777, 12000, $ingreso);
+			$this->assertEquals(10,$empper->calcularAntiguedad());
 		}
 
         //Probar que, si construyo un empleado sin proporcionar la fecha de ingreso, 
@@ -50,10 +50,10 @@
         
 		public function testSinProporcionarFechaDeIngreso()
 		{
-			$empleadoPe = $this->crearDefault("Alejandro", "Scozzatti", 77777777, 12000);
+			$empper = $this->crearDefault("Alejandro", "Scozzatti", 77777777, 12000);
 			$fecha = new DateTime(); 
-			$this->assertEquals(date_format($fecha, 'y-m-d'), date_format($empleadoPe->getFechaIngreso(), 'y-m-d')); 
-			$this->assertEquals(0, $empleadoPe->calcularAntiguedad()); 
+			$this->assertEquals(date_format($fecha, 'y-m-d'), date_format($empper->getFechaIngreso(), 'y-m-d')); 
+			$this->assertEquals(0, $empper->calcularAntiguedad()); 
 		}
 		
 
@@ -62,10 +62,9 @@
 
 		public function testNoSePuedeCrearConFechaPosteriorAlDiaDeHoy(){
 			$ingreso = new DateTime();
-			$ingreso->modify('+5 years'); 
+			$ingreso->modify('+10 years'); 
 			$this->expectException(\Exception::class);
-			$empper= $this->crearDefault('Alejandro','Scozzatti', 77777777, 12000, $ingreso); //tiro la excepcion al instanciar
+			$empper= $this->crearDefault("Alejandro", "Scozzatti", 77777777, 12000, $ingreso); //tiro la excepcion al instanciar
 		}
 		
 	}
-?>
