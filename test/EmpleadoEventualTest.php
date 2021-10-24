@@ -1,31 +1,33 @@
 <?php
 	require_once 'EmpleadoTest.php';
 	
-    class EmpleadoEventualTest extends EmpleadoTest{
+    class EmpleadoEventualTest extends EmpleadoTest
+	{
         //Funcion Crear
-		public function crear(  $nombre='German', $apellido ='Gimenez', $dni=30658947, $salario = 3000,
-								$montos = [200,250,300,350]){
+		public function crearDefault($nombre='Alejandro', $apellido ='Scozzatti', $dni=77777777, $salario = 12000,
+								$montos=array[2000,2500,3000,3500])
+					{
 
-							   $empev = new \App\EmpleadoEventual($nombre,$apellido, $dni, $salario, $montos);
-							   return $empev;
-		}
+							$empev = new \App\EmpleadoEventual($nombre,$apellido, $dni, $salario, $montos);
+							return $empev;
+		            }
 
         //Probar que el método calcularComision() funciona como se espera.
 
-		public function testComisionPorVentasFuncionaCorrectamente(){
+		public function testCalcularComision(){
 
-		//(200+250+300+350)/4)*0,1 = 27,5
+		//(2000+2500+3000+3500)/4)*0,1 = 275
 
-			$empev= $this->crear();			 
-			$this-> assertEquals(27.5,$empev->calcularComision()); 
+			$empev= $this->crearDefault();			 
+			$this-> assertEquals(275,$empev->calcularComision()); 
 		}
 
         //Probar que el método calcularIngresoTotal() funciona como se espera.
 
-		public function testCalculoDelIngresoTotalEsCorrecto(){
+		public function testCalculoDelIngresoTotal(){
 
-			$empev=$this->crear();
-			$this->assertEquals(3027.5,$empev->calcularIngresoTotal());
+			$empev=$this->crearDefault();
+			$this->assertEquals(12275,$empev->calcularIngresoTotal());
 		}
 
         //Probar que si intento construir un empleado
@@ -34,8 +36,8 @@
 		public function testNoSePuedeConstruirConMontoDeVentaNegativoOCero(){
 
 			$this->expectException(\Exception::class); 
-			$ventas = [0,-100, 250, 300];
-			$empev = $this->crear(null,null,null,$ventas);
+			$ventas = [0,-100, 2500, 3000];
+			$empev = $this->crearDefault("Alejandro","Scozzatti",77777777,$ventas);
 		}
 		
 	}
