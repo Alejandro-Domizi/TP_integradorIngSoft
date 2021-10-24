@@ -83,7 +83,7 @@
 
 		public function testSiSeIntentaConstruirEmpleadoConElDniQueContengaLetras(){
 			$this->expectException(\Exception::class);
-			$this-> crearDefault("Alejandro","Scozzatti", 77DNI777, 12000);
+			$this-> crearDefault("Alejandro","Scozzatti", "77DNI777", 12000);
 		}
 
 		//Probar que si, al intentar construir un empleado, no se especifica el sector, 
@@ -94,4 +94,3 @@
 			$this->assertEquals("No especificado", $emp->getSector());
 		}
 	}
-?>

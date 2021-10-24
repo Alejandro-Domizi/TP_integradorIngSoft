@@ -1,14 +1,14 @@
 {
     "name": "diabolo/tp_integrador-ing-soft",
-    "description": "Tp integrador de ingenieria de software - testings unitarios",
-    "type": "project",
+    "description": "tp integrador ingsoft",
+    "type": "proyecto",
     "license": "gpl",
     "require": {
         "phpunit/phpunit": "^9.5"
-    },
+    }, 
     "autoload": {
-        "psr-4": {
-             "App\\": "app"
+        "psr-4":{
+            "App\\": "app"
         }
     }
 }
